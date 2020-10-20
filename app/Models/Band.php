@@ -5,11 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class band_bio extends Model
+class Band extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'bio', 'link_1', 'link_2', 'link_3', 'bg_color', 'text_color',
+        'name',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

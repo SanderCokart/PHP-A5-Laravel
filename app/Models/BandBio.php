@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class band extends Model
+class BandBio extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'bio', 'link_1', 'link_2', 'link_3', 'bg_color', 'text_color',
     ];
-
 }
