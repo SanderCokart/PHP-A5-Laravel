@@ -44,4 +44,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Band::class);
     }
+
+    public function moderator()
+    {
+        return $this->hasOne(Moderator::class);
+    }
+
+    /**
+     * When a user is created it will also create a moderator attached to the user and uses the same name as the user
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->moderator()->create([
+                'name' => $user->name,
+            ]);
+        });
+    }
 }

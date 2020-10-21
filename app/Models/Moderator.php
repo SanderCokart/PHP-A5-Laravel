@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Band extends Model
+class Moderator extends Model
 {
     use HasFactory;
 
@@ -13,14 +13,13 @@ class Band extends Model
         'name',
     ];
 
+    public function bands()
+    {
+        return $this->belongsToMany(Band::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    public function moderators()
-    {
-        return $this->belongsToMany(Moderator::class);
-    }
-
 }
