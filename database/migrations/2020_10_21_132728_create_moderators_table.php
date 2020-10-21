@@ -18,6 +18,9 @@ class CreateModeratorsTable extends Migration
             $table->string('name');
             $table->foreignId('user_id');
             $table->timestamps();
+
+            $table->index(['user_id']);
+
         });
     }
 

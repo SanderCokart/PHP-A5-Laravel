@@ -25,7 +25,16 @@ class Band extends Model
 
     public function bio()
     {
-        return $this->hasOne(BandBio::class);
+        return $this->belongsTo(BandBio::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($band) {
+            $band->bio()->create();
+        });
     }
 
 }

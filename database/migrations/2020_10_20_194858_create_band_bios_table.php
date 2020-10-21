@@ -15,13 +15,17 @@ class CreateBandBiosTable extends Migration
     {
         Schema::create('band_bios', function (Blueprint $table) {
             $table->id();
-            $table->string('bio', 4000);
-            $table->string('link_1', 100);
-            $table->string('link_2', 100);
-            $table->string('link_3', 100);
-            $table->string('bg_color', 7);
-            $table->string('text_color', 7);
+            $table->string('bio', 4000)->nullable();
+            $table->string('link_1', 100)->nullable();
+            $table->string('link_2', 100)->nullable();
+            $table->string('link_3', 100)->nullable();
+            $table->string('bg_color', 7)->nullable();
+            $table->string('text_color', 7)->nullable();
+            $table->foreignId('band_id');
             $table->timestamps();
+
+            $table->index(['band_id']);
+
         });
     }
 
