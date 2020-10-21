@@ -18,6 +18,8 @@ class CreateBandModeratorPivotTable extends Migration
             $table->foreignId('band_id');
             $table->foreignId('moderator_id');
             $table->timestamps();
+
+            $table->index(['band_id', 'moderator_id']);
         });
     }
 
