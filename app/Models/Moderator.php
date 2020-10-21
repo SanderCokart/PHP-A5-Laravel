@@ -13,13 +13,13 @@ class Moderator extends Model
         'name',
     ];
 
-    public function bands()
-    {
-        return $this->belongsToMany(Band::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bands()
+    {
+        return $this->belongsToMany(Band::class);
     }
 }

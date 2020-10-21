@@ -15,6 +15,6 @@ class BandBio extends Model
 
     public function band()
     {
-        return $this->hasOne(Band::class);
+        return $this->belongsTo(Band::class);
     }
 }

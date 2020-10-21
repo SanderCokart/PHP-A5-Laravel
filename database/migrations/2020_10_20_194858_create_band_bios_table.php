@@ -25,7 +25,6 @@ class CreateBandBiosTable extends Migration
             $table->timestamps();
 
             $table->index(['band_id']);
-
         });
     }
 
