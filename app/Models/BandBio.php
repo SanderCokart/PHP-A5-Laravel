@@ -12,4 +12,9 @@ class BandBio extends Model
     protected $fillable = [
         'bio', 'link_1', 'link_2', 'link_3', 'bg_color', 'text_color',
     ];
+
+    public function band()
+    {
+        return $this->belongsTo(Band::class);
+    }
 }

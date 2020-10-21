@@ -17,6 +17,7 @@ class CreateBandsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('user_id');
+            $table->foreignId('band_bios_id');
             $table->timestamps();
         });
     }

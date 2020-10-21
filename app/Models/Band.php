@@ -23,4 +23,9 @@ class Band extends Model
         return $this->belongsToMany(Moderator::class);
     }
 
+    public function bio()
+    {
+        return $this->hasOne(BandBio::class);
+    }
+
 }
