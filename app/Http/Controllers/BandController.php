@@ -18,7 +18,9 @@ class BandController extends Controller
      */
     public function index()
     {
-        //
+
+        $bands = Band::all();
+        return view('band.index', compact('bands'));
     }
 
     /**
@@ -47,16 +49,9 @@ class BandController extends Controller
      * @param Band $bands
      * @return Application|Factory|View
      */
-//    public function show(Band $band)
-//    {
-//        $users = User::all();
-//        return view('band.show', compact('band'));
-//    }
-
-    public function show()
+    public function show(Band $band)
     {
-        $bands = Band::all();
-        return view('band.show', compact('bands'));
+    //
     }
 
 
@@ -96,4 +91,5 @@ class BandController extends Controller
     {
         //
     }
+
 }
