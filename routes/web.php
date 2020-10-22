@@ -19,4 +19,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('band', \App\Http\Controllers\BandController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
