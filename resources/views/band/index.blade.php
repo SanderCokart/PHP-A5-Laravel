@@ -1,3 +1,4 @@
+
 @extends('welcome')
 @section('index')
     <div class="container">

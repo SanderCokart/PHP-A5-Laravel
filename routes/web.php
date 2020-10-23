@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/' , [\App\Http\Controllers\BandController::class , 'index']);
+Route::get('/home' , [\App\Http\Controllers\BandController::class , 'home'])->middleware('auth');
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -26,4 +27,4 @@ Route::get('/band', function(){
 Route::resource('band', \App\Http\Controllers\BandController::class);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

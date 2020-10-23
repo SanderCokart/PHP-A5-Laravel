@@ -92,4 +92,13 @@ class BandController extends Controller
         //
     }
 
+    /**
+     * @return Application|Factory|View
+     */
+    public function home()
+    {
+        $bands = auth()->user()->bands;
+        return view('home',compact('bands'));
+    }
+
 }

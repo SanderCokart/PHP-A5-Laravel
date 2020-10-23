@@ -1,0 +1,11 @@
+.card-body{
+    display: flex;
+}
+
+
+.card{
+    padding: 60px;
+}
+.mydiv{
+    background-color: #1d68a7;
+}
