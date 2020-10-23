@@ -14,11 +14,10 @@ class BandController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function index()
     {
-
         $bands = Band::all();
         return view('band.index', compact('bands'));
     }
@@ -46,15 +45,13 @@ class BandController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Band $bands
+     * @param Band $band
      * @return Application|Factory|View
      */
     public function show(Band $band)
     {
-    //
+        return view('band.show', compact('band'));
     }
-
-
 
 
     /**
@@ -91,14 +88,4 @@ class BandController extends Controller
     {
         //
     }
-
-    /**
-     * @return Application|Factory|View
-     */
-    public function home()
-    {
-        $bands = auth()->user()->bands;
-        return view('home',compact('bands'));
-    }
-
 }

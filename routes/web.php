@@ -2,29 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/' , [\App\Http\Controllers\BandController::class , 'index']);
-Route::get('/home' , [\App\Http\Controllers\BandController::class , 'home'])->middleware('auth');
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Auth::routes();
 
-Route::get('/band', function(){
+//ROOT
+Route::get('/', [\App\Http\Controllers\BandController::class, 'index']);
+
+//DASHBOARD FOR LOGGED IN USERS
+Route::get('/home', function () {
+    return view('dashboard');
+})->middleware('auth');
+
+//REDIRECT FROM UNNECESSARY ROUTE
+Route::get('/band', function () {
     return redirect('/');
 });
+
+//RESOURCES
 Route::resource('band', \App\Http\Controllers\BandController::class);
-
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
