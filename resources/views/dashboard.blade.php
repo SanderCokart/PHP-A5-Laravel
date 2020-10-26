@@ -19,7 +19,7 @@
                             style="left:0; right: 0;">{{$band->name}}</h2>
                         <img src="https://picsum.photos/id/{{rand(1,100)}}/1000/300" class="d-block w-100"
                              alt="Banner photo of {{$band->name}}.">
-                        <a href="{{ route('band.edit', $band->id) }}">
+                        <a href="{{ route('band.show', $band->id) }}">
                             <button
                                 class="btn btn-primary custom-center w-25 h-25 font-weight-bold text-uppercase rounded-pill"
                                 style="font-size: 2rem">More Info
