@@ -58,12 +58,11 @@ class BandController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Band $band
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function edit(Band $band)
     {
-        dd('hi');
-        //
+        return view('band.edit', compact('band'));
     }
 
     /**

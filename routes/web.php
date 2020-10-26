@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 //ROOT
-Route::get('/', [\App\Http\Controllers\BandController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\BandController::class, 'index'])->name('home');
 
 //DASHBOARD FOR LOGGED IN USERS
-Route::get('/home', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
 
 //REDIRECT FROM UNNECESSARY ROUTE
 Route::get('/band', function () {
