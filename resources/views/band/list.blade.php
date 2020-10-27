@@ -10,7 +10,7 @@
                     <small>Founded on: {{ substr($band->created_at,0,11) }}</small>
                 </div>
                 @if($band->bandBio->bio)
-                    <p>{{ $band->bandBio->bio }}</p>
+                    <p class="custom-text-overflow lines-3">{{ $band->bandBio->bio }}</p>
                 @endif
             </a>
         @endforeach

@@ -18,3 +18,61 @@
     width: 50px;
     height: 50px;
 }
+
+.title-header {
+    font-family: "Roboto Black", sans-serif;
+}
+
+.title-header-italic {
+    font-family: "Roboto Black", sans-serif;
+    font-style: italic;
+}
+
+.paragraph {
+    font-family: "Roboto Regular", sans-serif;
+}
+
+.paragraph-italic {
+    font-family: "Roboto Regular", sans-serif;
+    font-style: italic;
+}
+
+.bg-dark-transparent {
+    background: #343a4055;
+}
+
+/*.row {*/
+/*    margin: 0 !important;*/
+/*}*/
+
+.custom-text-overflow {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 22;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.lines-1 {
+    -webkit-line-clamp: 2;
+}
+
+.lines-2 {
+    -webkit-line-clamp: 2;
+}
+
+.lines-3 {
+    -webkit-line-clamp: 3;
+}
+
+.vh-100 {
+    height: 100vh;
+}
+
+.vh-90 {
+    height: 90vh;
+}
+
+.vh-80 {
+    height: 80vh;
+}

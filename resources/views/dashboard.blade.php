@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div class="jumbotron mb-0">
-        <h1 class="display-2">Welcome {{auth()->user()->name}} !</h1>
-        <p class="lead display-3">It is {{date('l \t\h\e d-M-Y')}}, We hope you are having a wonderful day!</p>
+        <h1 class="display-2 font-weight-bold">Welcome {{auth()->user()->name}} !</h1>
+        <p class="lead display-4">It is {{date('l \t\h\e d-M-Y')}}, We hope you are having a wonderful day!</p>
         <hr class="mb-4">
         <p class="lead">Take a look below to see all the bands you manage!</p>
     </div>
+
 
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -15,9 +16,10 @@
             @else
                 @foreach(auth()->user()->bands as $band)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <h2 class="position-absolute text-center text-light mt-5 text-capitalize font-weight-bold display-4"
+                        <h2 class="position-absolute text-center text-light mt-5 text-capitalize font-weight-bold display-4 bg-dark-transparent font-weight-bold"
                             style="left:0; right: 0;">{{$band->name}}</h2>
-                        <img src="https://picsum.photos/id/{{rand(1,100)}}/1000/300" class="d-block w-100"
+                        <img src="{{ $band->bandBio->image }}" class="d-block w-100"
+                             style="height: 500px; object-fit: cover; object-position:  0px -300px"
                              alt="Banner photo of {{$band->name}}.">
                         <a href="{{ route('band.show', $band->id) }}">
                             <button

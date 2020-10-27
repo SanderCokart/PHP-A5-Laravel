@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-8 offset-2">
                     <div class="row">
-                        <h1>Edit Bands </h1>
+                        <h1>{{ $band->name }}</h1>
                     </div>
                     <div class="form-group row">
                         <label for="title" class="col-md-4 col-form-label ">Name</label>
@@ -30,15 +30,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-md-4 col-form-label ">Bio</label>
+                        <label for="bio" class="col-md-4 col-form-label ">Bio</label>
 
 
-                        <input id="bio"
-                               type="text"
-                               class="form-control @error('name') is-invalid @enderror"
-                               name="bio"
-                               value="{{ old('bio') ?? $band->bandBio->bio }}"
-                               autocomplete="description" autofocus>
+                        <textarea id="bio"
+                                  type="text"
+                                  class="form-control @error('name') is-invalid @enderror"
+                                  name="bio"
+                                  autocomplete="bio"
+                                  autofocus>{{ old('bio') ?? $band->bandBio->bio }}</textarea>
 
                         @error('bio')
                         <span class="invalid-feedback" role="alert">
