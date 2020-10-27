@@ -35,7 +35,7 @@
 
                         <input id="bio"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               class="form-control @error('bio') is-invalid @enderror"
                                name="bio"
                                value="{{ old('bio') ?? $band->bandBio->bio }}"
                                autocomplete="description" autofocus>
@@ -53,7 +53,8 @@
 
                         <input id="link_1"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               value="{{ old('link_1') ?? $band->bandBio->link_1}}"
+                               class="form-control @error('link_1') is-invalid @enderror"
                                name="link_1"
                                autocomplete="link_1" autofocus>
 
@@ -70,7 +71,8 @@
 
                         <input id="link_2"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               value="{{ old('link_2') ?? $band->bandBio->link_2}}"
+                               class="form-control @error('link_2') is-invalid @enderror"
                                name="link_2"
                                autocomplete="description" autofocus>
 
@@ -86,7 +88,8 @@
 
                         <input id="link_3"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               value="{{ old('link_3') ?? $band->bandBio->link_3}}"
+                               class="form-control @error('link_3') is-invalid @enderror"
                                name="link_3"
 
                                autocomplete="link_3" autofocus>
@@ -103,9 +106,9 @@
 
                         <input id="bg_color"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               class="form-control @error('bg_color') is-invalid @enderror"
                                name="bg_color"
-
+                               value="{{ old('bg_color') ?? $band->bg_color}}"
                                autocomplete="bg_color" autofocus>
 
                         @error('bg_color')
@@ -120,9 +123,9 @@
 
                         <input id="text_color"
                                type="text"
-                               class="form-control @error('name') is-invalid @enderror"
+                               class="form-control @error('text_color') is-invalid @enderror"
                                name="text_color"
-
+                               value="{{ old('text_color') ?? $band->text_color}}"
                                autocomplete="text_color" autofocus>
 
                         @error('text_color')
