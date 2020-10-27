@@ -1,10 +1,15 @@
 @extends('layouts.app')
 @section('content')
     <div class="jumbotron mb-0">
-        <h1 class="display-2 font-weight-bold">Welcome {{auth()->user()->name}} !</h1>
-        <p class="lead display-4">It is {{date('l \t\h\e d-M-Y')}}, We hope you are having a wonderful day!</p>
+        <div class="d-flex justify-content-between align-items-baseline">
+            <h2 class="font-weight-bold">Welcome {{auth()->user()->name}} !</h2>
+            <a href="{{ route('user.edit', auth()->user()->id) }}">
+                <button class="btn btn-info">Edit Profile</button>
+            </a>
+        </div>
+        <p class="lead">It is {{date('l \t\h\e d-M-Y')}}, We hope you are having a wonderful day!</p>
         <hr class="mb-4">
-        <p class="lead">Take a look below to see all the bands you manage!</p>
+        <p>Take a look below to see all the bands you manage!</p>
     </div>
 
 

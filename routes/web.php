@@ -6,7 +6,6 @@ Auth::routes();
 
 //ROOT
 Route::get('/', [\App\Http\Controllers\BandController::class, 'index'])->name('home');
-
 //DASHBOARD FOR LOGGED IN USERS
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,3 +18,7 @@ Route::get('/band', function () {
 
 //RESOURCES
 Route::resource('band', \App\Http\Controllers\BandController::class);
+
+Route::resource('user', \App\Http\Controllers\UserController::class)->only([
+    'update', 'edit'
+]);
