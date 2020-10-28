@@ -1,124 +1,50 @@
 @extends('layouts.app')
 @section('content')
+    <div style="background-color: {{ $band->bandBio->bg_color }}">
+        <div class="container">
 
-    <div>
-        {{--        BIOGRAPHY START--}}
-        <div class="d-flex flex-column flex-md-row w-100"
-             style="background-color: {{ $band->bandBio->bg_color ?? '#333' }};">
 
-            <div class="w-100 ">
-                <img class="h-100 w-100" src="{{$band->bandBio->image}}" alt="Band Banner"
-                     style="object-fit: cover; object-position: top left">
+            <div class="position-relative d-flex justify-content-center align-items-center pt-5">
+                <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image }}" alt="Band Banner">
+            </div>
+
+            <div class="py-5">
+                <h1 class="text-center font-weight-bold text-light">{{ $band->name }}</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div id="biography" class="card-header lead font-weight-bold">Biography</div>
+                        <div class="card-body p-5">
+                            <h5 class="card-title font-weight-bold">About us</h5>
+                            <p class="card-text"
+                               style="color:{{ $band->bandBio->text_color ?? '#333' }}">{{ $band->bandBio->bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12"></div>
             </div>
 
 
-            <div class="w-100">
-                <div class="d-flex flex-column p-5">
-
-                    <div class="d-flex justify-content-between align-items-baseline">
-                        <div><h2 style="color: {{$band->bandBio->text_color ?? '#eee'}}">{{ $band->name }}</h2></div>
-                        <div>
-                            <a class="badge px-3 badge-warning text-dark"
-                               href="{{route('band.edit', $band->id)}}">
-                                Edit
-                            </a>
+            <div class="pb-5">
+                @if(count($band_links) > 0)
+                    <div class="card">
+                        <div class="card-header">Related Videos</div>
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach($band_links as $link)
+                                    <div class="col-12 col-lg-4">
+                                        <iframe width="100%" height="200" src="{{ $link }}" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 
-
-                    <hr class="w-100" style="background-color: {{$band->bandBio->text_color ?? '#eee'}}">
-
-
-                    <div>
-                        <p class=""
-                           style="color: {{$band->bandBio->text_color ?? '#eee'}}">{{$band->bandBio->bio}}</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        {{--        BIOGRAPHY END--}}
-
-
-        @if($band->bandBio->link_1 || $band->bandBio->link_2 || $band->bandBio->link_3)
-            {{--        VIDEOS START--}}
-            <div>
-                {{--            HEADER START--}}
-
-                <div class="card-header rounded-0 font-weight-bold"
-                     style="background-color: {{ $band->bandBio->bg_color }}; color: {{ $band->bandBio->text_color }}">
-                    Videos
-                </div>
-
-                {{--            HEADER END--}}
-
-                {{--            LINKS START--}}
-                {{--            LINK 1--}}
-                @if($band->bandBio->link_1)
-                    <div style="display: grid; grid-template-columns: 100px 1fr 1fr 1fr 100px; grid-gap: 10px;"
-                         class="pt-5">
-                        <div class="card flex-grow-1" style="grid-column-start: 2">
-                            <div class="card-body"
-                                 style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                                <iframe width="100%" height="400px"
-                                        src="{{$band->bandBio->link_1 ? $band->bandBio->link_1 : ''}}"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        @endif
-                        {{--                LINK 2--}}
-                        @if($band->bandBio->link_2)
-                            <div class="card flex-grow-1">
-                                <div class="card-body"
-                                     style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                                    <iframe width="100%" height="400px"
-                                            src="{{$band->bandBio->link_2 ? $band->bandBio->link_2 : ''}}"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        @endif
-                        {{--                LINK 3--}}
-                        @if($band->bandBio->link_3)
-                            <div class="card flex-grow-1">
-                                <div class="card-body"
-                                     style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                                    <iframe width="100%" height="400px"
-                                            src="{{$band->bandBio->link_3 ? $band->bandBio->link_3 : ''}}"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                    {{--            LINKS END--}}
-            </div>
-            {{--        VIDEOS END--}}
-        @endif
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="bioModel" tabindex="-1" role="dialog" aria-labelledby="bioModelLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bioModelLabel">Biography</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: {{ $band->bandBio->bg_color ?? '#333' }};">
-                    <p style="color: {{$band->bandBio->text_color ?? '#eee'}}">{{$band->bandBio->bio}}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                @endif
             </div>
         </div>
     </div>

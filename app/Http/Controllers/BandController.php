@@ -53,7 +53,15 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        return view('band.show', compact('band'));
+        $band_links_collection = array($band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3);
+        $band_links = [];
+
+        foreach ($band_links_collection as $link) {
+            $link !== null && $band_links[] = $link;
+        }
+
+
+        return view('band.show', compact('band', 'band_links'));
     }
 
 
@@ -96,7 +104,7 @@ class BandController extends Controller
 
         if (isset($data['image'])) {
             $imagePath = $data['image']->store('band_images', 'public');
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1920);
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1080);
             $image->save();
             $imagePath = '/storage/' . $imagePath;
             $data['image'] = $imagePath;
