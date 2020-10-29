@@ -6,12 +6,12 @@
                 <div>Band List</div>
                 <div>
                     <form action="{{ route('band.index') }}" method="get">
-                        @csrf
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
-                            <input class="form-control" type="search" placeholder="Search" name="search">
+                            <input class="form-control" type="search" placeholder="Search" name="search"
+                                   value="{{ $search }}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="submit">Search</button>
                             </div>
