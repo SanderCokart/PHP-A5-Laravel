@@ -10,7 +10,7 @@ class BandBio extends Model
     use HasFactory;
 
     protected $fillable = [
-        'bio', 'link_1', 'link_2', 'link_3', 'bg_color', 'text_color',
+        'bio', 'link_1', 'link_2', 'link_3', 'bg_color', 'text_color', 'image',
     ];
 
     public function band()
