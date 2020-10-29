@@ -1,48 +1,48 @@
 @extends('layouts.app')
 @section('content')
-    <div class="jumbotron position-relative rounded-0 mb-0 position-relative"
-         style="height: 80vh;background-image: url({{ $band->bandBio->image }}); background-position: center; background-size: cover">
-        <h1 style="color: {{$band->bandBio->text_color}}">{{$band->name}}</h1>
-        <p style="color: {{$band->bandBio->text_color}}" class="lead">{{$band->bandBio->bio}}</p>
-        {{--        TODO policy--}}
-        <a href="{{ route('band.edit', $band->id) }}">
-            <button class="btn position-absolute"
-                    style="top:20px;right: 20px;background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}; color: {{ $band->bandBio->text_color }}">
-                Edit Band
-            </button>
-        </a>
-    </div>
-    <div class="card-header rounded-0"
-         style="background-color:{{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }};color:{{ $band->bandBio->text_color }}">
-        <div>Video's</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 100px 1fr 1fr 1fr 100px; grid-gap: 10px;" class="pt-5">
+    <div style="background-color: {{ $band->bandBio->bg_color }}">
+        <div class="container">
 
-        <div class="card flex-grow-1" style="grid-column-start: 2">
-            <div class="card-body"
-                 style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                <iframe width="100%" height="400px" src="{{$band->bandBio->link_1 ? $band->bandBio->link_1 : ''}}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+            <div class="position-relative d-flex justify-content-center align-items-center pt-5">
+                <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image }}" alt="Band Banner">
             </div>
-        </div>
-        <div class="card flex-grow-1">
-            <div class="card-body"
-                 style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                <iframe width="100%" height="400px" src="{{$band->bandBio->link_2 ? $band->bandBio->link_2 : ''}}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+
+            <div class="py-5">
+                <h1 class="text-center font-weight-bold text-light">{{ $band->name }}</h1>
             </div>
-        </div>
-        <div class="card flex-grow-1">
-            <div class="card-body"
-                 style="background-color: {{ $band->bandBio->bg_color ? $band->bandBio->bg_color : '#ddd' }}">
-                <iframe width="100%" height="400px" src="{{$band->bandBio->link_3 ? $band->bandBio->link_3 : ''}}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div id="biography" class="card-header lead font-weight-bold">Biography</div>
+                        <div class="card-body p-5">
+                            <h5 class="card-title font-weight-bold">About us</h5>
+                            <p class="card-text"
+                               style="color:{{ $band->bandBio->text_color ?? '#333' }}">{{ $band->bandBio->bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12"></div>
+            </div>
+
+
+            <div class="pb-5">
+                @if(count($band_links) > 0)
+                    <div class="card">
+                        <div class="card-header">Related Videos</div>
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach($band_links as $link)
+                                    <div class="col-12 col-lg-4">
+                                        <iframe width="100%" height="200" src="{{ $link }}" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

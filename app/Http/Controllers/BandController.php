@@ -53,7 +53,8 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        return view('band.show', compact('band'));
+        $band_links = collect($band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3)->filter();
+        return view('band.show', compact('band', 'band_links'));
     }
 
 
@@ -110,7 +111,7 @@ class BandController extends Controller
 
         if (isset($data['image'])) {
             $imagePath = $data['image']->store('band_images', 'public');
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1920);
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1080);
             $image->save();
             $imagePath = '/storage/' . $imagePath;
             $data['image'] = $imagePath;
@@ -135,5 +136,16 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->validate([
+            'search' => ['nullable']
+        ]);
+
+        $bands = Band::where('name', 'like', '%' . $data['search'] . '%')->get();
+
+        return view('band.index', compact('bands'));
     }
 }
