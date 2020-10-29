@@ -36,8 +36,7 @@
                                   class="form-control @error('bio') is-invalid @enderror"
                                   name="bio"
                                   autocomplete="bio"
-                                  autofocus>{{ old('bio') ?? $band->bandBio->bio }}
-                                  </textarea>
+                                  autofocus>{{ old('bio') ?? $band->bandBio->bio }}</textarea>
 
                         @error('bio')
                         <span class="invalid-feedback" role="alert">

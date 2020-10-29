@@ -24,7 +24,7 @@
                     @foreach($bands as $band)
                         <a href="{{route('band.show', $band->id)}}"
                            class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
+                            <div class="d-flex w-100 justify-content-between align-items-baseline">
                                 <h5>{{ $band->name }}</h5>
                                 <small>Founded on: {{ substr($band->created_at,0,11) }}</small>
                             </div>

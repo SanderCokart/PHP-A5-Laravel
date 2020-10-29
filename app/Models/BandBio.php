@@ -17,4 +17,9 @@ class BandBio extends Model
     {
         return $this->belongsTo(Band::class);
     }
+
+    public function image()
+    {
+        return ($this->image) ? $this->image : '/storage/placeholders/missing_image.jpeg';
+    }
 }

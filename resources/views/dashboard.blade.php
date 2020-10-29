@@ -2,48 +2,37 @@
 @section('content')
     <div class="container">
         <div class="jumbotron mb-0">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h2 class="font-weight-bold">Welcome {{auth()->user()->name}} !</h2>
-                <a href="{{ route('user.edit', auth()->user()->id) }}">
-                    <button class="btn btn-info">Edit Profile</button>
-                </a>
-            </div>
+            <h2 class="font-weight-bold">Welcome {{auth()->user()->name}} !</h2>
             <p class="lead">It is {{date('l \t\h\e d-M-Y')}}, We hope you are having a wonderful day!</p>
             <hr class="mb-4">
             <p>Take a look below to see all the bands you manage!</p>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-info btn-sm" href="{{ route('user.edit', auth()->user()->id) }}">
+                    Edit Profile
+                </a>
+            </div>
         </div>
 
 
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                @if(count(auth()->user()->bands) === 0)
-                    <h2 class="text-center">You have no bands in your management.</h2>
-                @else
-                    @foreach(auth()->user()->bands as $band)
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img src="{{ $band->bandBio->image }}" class="d-block w-100"
-                                 style="height: 500px; object-fit: cover; object-position: top"
-                                 alt="Banner photo of {{$band->name}}.">
-                            <a href="{{ route('band.show', $band->id) }}">
-                                <button
-                                    class="btn btn-dark border border-light custom-center w-50 h-25 font-weight-bold text-uppercase rounded-pill bg-dark-transparent"
-                                    style="font-size: 2rem">More Info
-                                </button>
-                            </a>
-                            <h2 class="position-absolute text-center text-light mt-5 text-capitalize font-weight-bold display-4 bg-dark-transparent font-weight-bold"
-                                style="bottom:0; left:0; right: 0;">{{$band->name}}</h2>
-                        </div>
-                    @endforeach
-                @endif
+        <div class="py-5">
+            <div class="card">
+                <div class="card-header lead font-weight-bold">Bands under your management</div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach(auth()->user()->bands as $band)
+                            <div class="col-12 col-lg-6 col-xl-4 pb-2">
+                                <a href="{{ route('band.show', $band->id) }}">
+                                    <div class="position-relative border border-dark rounded">
+                                        <img class="w-100 rounded" src="{{ $band->bandBio->image() }}" alt="">
+                                        <h2 class="bg-dark-transparent w-100 m-0 text-light text-center text-capitalize font-weight-bold font-italic"
+                                            style="position:absolute; bottom:0; left:0">{{ $band->name }}</h2>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 50px; height: 50px;"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="width: 50px; height: 50px;"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
     </div>
 @endsection
