@@ -2,8 +2,23 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header lead font-weight-bold">
-                Band List
+            <div class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
+                <div>Band List</div>
+                <div>
+                    <form action="{{ route('band.search') }}" method="POST">
+                        @csrf
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="Search" name="search"
+                                   value="{{ old('search') ?? '' }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <div class="list-group">

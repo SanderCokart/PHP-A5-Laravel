@@ -53,14 +53,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        $band_links_collection = array($band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3);
-        $band_links = [];
-
-        foreach ($band_links_collection as $link) {
-            $link !== null && $band_links[] = $link;
-        }
-
-
+        $band_links = collect($band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3)->filter();
         return view('band.show', compact('band', 'band_links'));
     }
 
@@ -130,5 +123,16 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->validate([
+            'search' => ['nullable']
+        ]);
+
+        $bands = Band::where('name', 'like', '%' . $data['search'] . '%')->get();
+
+        return view('band.index', compact('bands'));
     }
 }
