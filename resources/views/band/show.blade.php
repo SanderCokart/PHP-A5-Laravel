@@ -3,7 +3,6 @@
     <div style="background-color: {{ $band->bandBio->bg_color }}">
         <div class="container">
 
-
             <div class="position-relative d-flex justify-content-center align-items-center pt-5">
                 <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image }}" alt="Band Banner">
             </div>
@@ -43,7 +42,6 @@
                             </div>
                         </div>
                     </div>
-
                 @endif
             </div>
         </div>

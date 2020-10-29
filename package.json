@@ -24,5 +24,6 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0"
+        "@simonwep/pickr": "^1.7.4"
     }
 }

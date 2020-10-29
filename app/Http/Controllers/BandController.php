@@ -90,10 +90,24 @@ class BandController extends Controller
             'link_3' => ['url', 'nullable'],
         ]);
 
-        if (isset($data['link_1']) || isset($data['link_2']) || isset($data['link_3'])) {
-            //sreach embed zo niet zet in na .com.
-            //string overschrijven
+        function replaceLink($link)//$data['link_1']
+        {
+            $link = str_replace('.com/watch?v=', '.com/embed/', $link);//tweede stap
+            return $link;
         }
+
+        if (isset($data['link_1'])) {
+            $data['link_1'] = replaceLink($data['link_1']);//eerste stap
+        }
+
+        if (isset($data['link_2'])) {
+            $data['link_2'] = replaceLink($data['link_2']);
+        }
+
+        if (isset($data['link_3'])) {
+            $data['link_3'] = replaceLink($data['link_3']);
+        }
+
 
         if (isset($data['image'])) {
             $imagePath = $data['image']->store('band_images', 'public');
@@ -110,7 +124,6 @@ class BandController extends Controller
         $band->bandBio->update($data);
 
         return redirect(route('band.show', $band->id));
-
     }
 
 
