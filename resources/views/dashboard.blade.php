@@ -21,8 +21,6 @@
                 @else
                     @foreach(auth()->user()->bands as $band)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <h2 class="position-absolute text-center text-light mt-5 text-capitalize font-weight-bold display-4 bg-dark-transparent font-weight-bold"
-                                style="bottom:0; left:0; right: 0;">{{$band->name}}</h2>
                             <img src="{{ $band->bandBio->image }}" class="d-block w-100"
                                  style="height: 500px; object-fit: cover; object-position: top"
                                  alt="Banner photo of {{$band->name}}.">
@@ -32,7 +30,8 @@
                                     style="font-size: 2rem">More Info
                                 </button>
                             </a>
-                            <h2></h2>
+                            <h2 class="position-absolute text-center text-light mt-5 text-capitalize font-weight-bold display-4 bg-dark-transparent font-weight-bold"
+                                style="bottom:0; left:0; right: 0;">{{$band->name}}</h2>
                         </div>
                     @endforeach
                 @endif

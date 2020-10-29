@@ -56,7 +56,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        $band_links = collect($band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3)->filter();
+        $band_links = [$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3];
         return view('band.show', compact('band', 'band_links'));
     }
 
@@ -96,6 +96,7 @@ class BandController extends Controller
         function replaceLink($link)//$data['link_1']
         {
             $link = str_replace('.com/watch?v=', '.com/embed/', $link);//tweede stap
+            $link = preg_replace('/&t=\d*s$/', '', $link);
             return $link;
         }
 

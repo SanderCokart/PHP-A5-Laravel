@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div style="background-color: {{ $band->bandBio->bg_color }}">
+    <div style="background-color: {{ $band->bandBio->bg_color ?? '#333'}}">
         <div class="container">
 
             <div class="position-relative d-flex justify-content-center align-items-center pt-5">
@@ -14,7 +14,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div id="biography" class="card-header lead font-weight-bold">Biography</div>
+                        <div id="biography"
+                             class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
+                            <div>Biography</div>
+                            <a href="{{ route('band.edit', $band->id) }}" class="btn btn-sm btn-success px-4">Edit</a>
+                        </div>
                         <div class="card-body p-5">
                             <h5 class="card-title font-weight-bold">About us</h5>
                             <p class="card-text"
