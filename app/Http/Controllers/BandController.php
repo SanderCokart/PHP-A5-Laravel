@@ -17,11 +17,14 @@ class BandController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View|Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bands = Band::all();
+        $search = $request->get('search');
+
+        $bands = Band::where('name', 'like', '%' . $search . '%')->get();
         return view('band.index', compact('bands'));
     }
 
@@ -136,16 +139,5 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        $data = $request->validate([
-            'search' => ['nullable']
-        ]);
-
-        $bands = Band::where('name', 'like', '%' . $data['search'] . '%')->get();
-
-        return view('band.index', compact('bands'));
     }
 }

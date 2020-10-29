@@ -22,5 +22,3 @@ Route::resource('band', \App\Http\Controllers\BandController::class);
 Route::resource('user', \App\Http\Controllers\UserController::class)->only([
     'update', 'edit'
 ]);
-
-Route::post('band/search', [\App\Http\Controllers\BandController::class, 'search'])->name('band.search');
