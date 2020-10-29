@@ -30,10 +30,10 @@
             </div>
 
 
-            <div class="pb-5">
+            <div class="py-5">
                 @if(count($band_links) > 0)
                     <div class="card">
-                        <div class="card-header">Related Videos</div>
+                        <div class="card-header lead font-weight-bold">Related Videos</div>
                         <div class="card-body">
                             <div class="row">
                                 @foreach($band_links as $link)
