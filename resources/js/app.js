@@ -1,1 +1,3 @@
+import './ColorPicker'
 require('./bootstrap');
+

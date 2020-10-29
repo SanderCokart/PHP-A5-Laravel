@@ -102,14 +102,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="bg_color" class="col-md-4 col-form-label ">BG_color</label>
-
-                        <input id="bg_color"
-                               type="text"
-                               class="form-control @error('bg_color') is-invalid @enderror"
-                               name="bg_color"
-                               value="{{ old('bg_color') ?? $band->bg_color}}"
-                               autocomplete="bg_color" autofocus>
+                        <label for="bg_color" class="col-md-4 col-form-label ">Background Color</label>
+                        <div class="input-group">
+                            <input id="bg_color"
+                                   type="text"
+                                   class="form-control @error('bg_color') is-invalid @enderror"
+                                   name="bg_color"
+                                   value="{{ old('bg_color') ?? $band->bandBio->bg_color}}"
+                                   autocomplete="bg_color" autofocus>
+                            <div class="input-group-append">
+                                <div class="background-color-picker"></div>
+                            </div>
+                        </div>
 
                         @error('bg_color')
                         <span class="invalid-feedback" role="alert">
@@ -120,13 +124,17 @@
 
                     <div class="form-group row">
                         <label for="text_color" class="col-md-4 col-form-label ">Text_color</label>
-
-                        <input id="text_color"
-                               type="text"
-                               class="form-control @error('text_color') is-invalid @enderror"
-                               name="text_color"
-                               value="{{ old('text_color') ?? $band->text_color}}"
-                               autocomplete="text_color" autofocus>
+                        <div class="input-group">
+                            <input id="text_color"
+                                   type="text"
+                                   class="form-control @error('text_color') is-invalid @enderror"
+                                   name="text_color"
+                                   value="{{ old('text_color') ?? $band->bandBio->text_color}}"
+                                   autocomplete="text_color" autofocus>
+                            <div class="input-group-append">
+                                <div class="text-color-picker"></div>
+                            </div>
+                        </div>
 
                         @error('text_color')
                         <span class="invalid-feedback" role="alert">
