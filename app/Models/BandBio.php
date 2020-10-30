@@ -20,6 +20,6 @@ class BandBio extends Model
 
     public function image()
     {
-        return ($this->image) ? $this->image : '/storage/folder/missing_image.jpeg';
+        return ($this->image) ? $this->image : '/storage/placeholders/missing_image.jpeg';
     }
 }

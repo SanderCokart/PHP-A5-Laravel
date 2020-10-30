@@ -24,14 +24,22 @@
                     @foreach($bands as $band)
                         <a href="{{route('band.show', $band->id)}}"
                            class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between align-items-baseline">
-                                <h5>{{ $band->name }}</h5>
-                                <small>Founded on: {{ substr($band->created_at,0,11) }}</small>
+                            <div class="row">
+                                <div class="col-3">
+                                    <img class="w-100" src="{{ $band->bandBio->image() }}" alt="">
+                                </div>
+                                <div class="col-9">
+                                    <div class="d-flex w-100 justify-content-between align-items-baseline">
+                                        <h5 class="flex-grow-1">{{ $band->name }}</h5>
+                                        <small>Founded on: {{ substr($band->created_at,0,11) }}</small>
+                                    </div>
+                                    @if($band->bandBio->bio)
+                                        <hr class="my-1">
+                                        <p class="custom-text-overflow lines-2">{{ $band->bandBio->bio }}</p>
+                                    @endif
+                                </div>
                             </div>
-                            @if($band->bandBio->bio)
-                                <hr class="my-1">
-                                <p class="custom-text-overflow lines-3">{{ $band->bandBio->bio }}</p>
-                            @endif
+
                         </a>
                     @endforeach
                 </div>

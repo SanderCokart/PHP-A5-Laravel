@@ -4,7 +4,7 @@
         <div class="container">
 
             <div class="position-relative d-flex justify-content-center align-items-center pt-5">
-                <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image }}" alt="Band Banner">
+                <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image() }}" alt="Band Banner">
             </div>
 
             <div class="py-5">
@@ -17,7 +17,9 @@
                         <div id="biography"
                              class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
                             <div>Biography</div>
+                            @can('update', $band)
                             <a href="{{ route('band.edit', $band->id) }}" class="btn btn-sm btn-success px-4">Edit</a>
+                            @endcan
                         </div>
                         <div class="card-body p-5">
                             <h5 class="card-title font-weight-bold">About us</h5>
