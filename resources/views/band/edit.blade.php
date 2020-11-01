@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form action="{{ route('band.update', $band->id) }}" enctype="multipart/form-data" method="post">
-            @csrf
-            @method('PATCH')
 
-            <div class="row">
-                <div class="col-8 offset-2">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <form action="{{ route('band.update', $band->id) }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    @method('PATCH')
                     <div class="row">
-                        <h1>{{ $band->name }}</h1>
+                        <h1 class="text-capitalize">{{ $band->name }}</h1>
                     </div>
                     <div class="form-group row">
                         <label for="title" class="col-md-4 col-form-label ">Name</label>
@@ -149,11 +149,29 @@
                         <strong>{{ $message }}</strong>
                         @enderror
                     </div>
+
                     <div class="row pt-4">
                         <button class="btn btn-primary">Save Profile</button>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+            <div class="col-12 col-lg-4 offset-0 offset-lg-1">
+                <div class="row">
+                    <h1>Moderators</h1>
+                </div>
+                <form action="">
+                    @csrf
+                    @method('PATCH')
+
+                    <div class="form-group row">
+                        <label for="moderator" class="col-md-12 col-form-label">Invite moderator</label>
+                        <input type="text" id="moderator" class="form-control @error('name') is-invalid @enderror"
+                               name="moderator" autocomplete="moderator" required type="email"
+                               placeholder="username@email.com"
+                               value="{{ old('moderator') }}">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
