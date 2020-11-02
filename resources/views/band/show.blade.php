@@ -18,13 +18,14 @@
                              class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
                             <div>Biography</div>
                             @can('update', $band)
-                            <a href="{{ route('band.edit', $band->id) }}" class="btn btn-sm btn-success px-4">Edit</a>
+                                <a href="{{ route('band.edit', $band->id) }}"
+                                   class="btn btn-sm btn-success px-4">Edit</a>
                             @endcan
                         </div>
                         <div class="card-body p-5">
                             <h5 class="card-title font-weight-bold">About us</h5>
                             <p class="card-text"
-                               style="color:{{ $band->bandBio->text_color ?? '#333' }}">{{ $band->bandBio->bio }}</p>
+                               style="white-space:pre-wrap;color:{{ $band->bandBio->text_color ?? '#333' }}">{{ $band->bandBio->bio }}</p>
                         </div>
                     </div>
                 </div>

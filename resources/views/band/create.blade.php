@@ -104,7 +104,7 @@
                                    type="text"
                                    class="form-control @error('bg_color') is-invalid @enderror"
                                    name="bg_color"
-                                   value="{{ old('bg_color')}}"
+                                   value="{{ old('bg_color') ?? '#333333'}}"
                                    autocomplete="bg_color" autofocus>
                             <div class="input-group-append">
                                 <div class="background-color-picker"></div>
@@ -125,7 +125,7 @@
                                    type="text"
                                    class="form-control @error('text_color') is-invalid @enderror"
                                    name="text_color"
-                                   value="{{ old('text_color')}}"
+                                   value="{{ old('text_color') ?? '#333333'}}"
                                    autocomplete="text_color" autofocus>
                             <div class="input-group-append">
                                 <div class="text-color-picker"></div>

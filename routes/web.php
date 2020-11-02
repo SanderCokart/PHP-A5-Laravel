@@ -22,3 +22,5 @@ Route::resource('band', \App\Http\Controllers\BandController::class);
 Route::resource('user', \App\Http\Controllers\UserController::class)->only([
     'update', 'edit'
 ]);
+
+Route::post('/moderator/invite', [\App\Http\Controllers\ModeratorController::class, 'invite'])->name('moderator.invite');

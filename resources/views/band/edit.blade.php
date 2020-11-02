@@ -146,7 +146,9 @@
                         <input type="file" class="form-control-file" id="image" name="image">
 
                         @error('image')
-                        <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
 
@@ -159,16 +161,24 @@
                 <div class="row">
                     <h1>Moderators</h1>
                 </div>
-                <form action="">
+                <form method="POST" action="{{route('moderator.invite', $band->id)}}">
                     @csrf
-                    @method('PATCH')
 
                     <div class="form-group row">
-                        <label for="moderator" class="col-md-12 col-form-label">Invite moderator</label>
-                        <input type="text" id="moderator" class="form-control @error('name') is-invalid @enderror"
-                               name="moderator" autocomplete="moderator" required type="email"
+                        <label for="email" class="col-md-12 col-form-label">Invite moderator</label>
+                        <input type="text" id="email" class="form-control @error('name') is-invalid @enderror"
+                               name="email" autocomplete="email" required type="email"
                                placeholder="username@email.com"
-                               value="{{ old('moderator') }}">
+                               value="{{ old('email') }}">
+                        @error('email')
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" type="submit">invite</button>
                     </div>
                 </form>
             </div>

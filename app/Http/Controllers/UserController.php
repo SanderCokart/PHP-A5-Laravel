@@ -22,14 +22,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $messages = [
-            'name.same' => 'The name is unchanged',
-        ];
-
-        $data = $request->validate(['name' => ['exclude_if:name,' . $user->name, 'required'], 'email' => ['exclude_if:email,' . $user->email, 'required', 'email']], $messages);
+        $data = $request->validate(['name' => ['exclude_if:name,' . $user->name, 'required'], 'email' => ['exclude_if:email,' . $user->email, 'required', 'email', 'unique:users']]);
 
         $user->update($data);
-        unset($data['email']);
+        unset($data['name']);
         $user->moderator()->update($data);
 
         return redirect(route('user.edit', $user->id));
