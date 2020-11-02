@@ -40,7 +40,7 @@
                             @endforeach
                         </div>
                     @else
-                        <h1 class="lead font-weight-bold text-center">You have no bands under your management!</h1>
+                        <p class="text-center">You have no bands under your management!</p>
                     @endif
                 </div>
             </div>

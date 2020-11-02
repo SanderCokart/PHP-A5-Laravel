@@ -21,6 +21,9 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
+                    @if(count($bands) === 0)
+                        <h2 class="lead font-weight-bold text-center">There are no bands created yet.</h2>
+                    @endif
                     @foreach($bands as $band)
                         <a href="{{route('band.show', $band->id)}}"
                            class="list-group-item list-group-item-action flex-column align-items-start">

@@ -4,7 +4,7 @@
         <div class="container">
 
             <div class="position-relative d-flex justify-content-center align-items-center pt-5">
-                <img class="w-100 rounded border border-light" src="{{ $band->bandBio->image() }}" alt="Band Banner">
+                <img class="w-100 rounded img-thumbnail" src="{{ $band->bandBio->image() }}" alt="Band Banner">
             </div>
 
             <div class="py-5">
