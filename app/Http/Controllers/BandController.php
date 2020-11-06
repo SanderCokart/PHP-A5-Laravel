@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Band;
+use App\Models\Moderator;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,11 @@ use Intervention\Image\Facades\Image;
 
 class BandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,22 +37,65 @@ class BandController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
-        //
+        return view('band.create');
+    }
+
+    public function replaceLink($link)
+    {
+        $link = str_replace('.com/watch?v=', '.com/embed/', $link);//tweede stap
+        $link = preg_replace('/&t=\d*s$/', '', $link);
+        return $link;
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'name' => ['min:1', 'required', 'unique:bands'],
+            'bio' => ['max:4000', 'nullable'],
+            'bg_color' => ['regex:/^#[0-9A-z]{6}$/', 'nullable'],
+            'text_color' => ['regex:/^#[0-9A-z]{6}$/', 'nullable'],
+            'image' => ['image', 'nullable'],
+            'link_1' => ['url', 'nullable'],
+            'link_2' => ['url', 'nullable'],
+            'link_3' => ['url', 'nullable'],
+        ]);
+
+        if (isset($data['link_1'])) {
+            $data['link_1'] = $this->replaceLink($data['link_1']);//eerste stap
+        }
+
+        if (isset($data['link_2'])) {
+            $data['link_2'] = $this->replaceLink($data['link_2']);
+        }
+
+        if (isset($data['link_3'])) {
+            $data['link_3'] = $this->replaceLink($data['link_3']);
+        }
+
+        if (isset($data['image'])) {
+            $imagePath = $data['image']->store('band_images', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1080);
+            $image->save();
+            $imagePath = '/storage/' . $imagePath;
+            $data['image'] = $imagePath;
+        }
+
+        $band = auth()->user()->bands()->create(['name' => $data['name']]);
+        unset($data['name']);
+        $band->bandBio()->create($data);
+
+
+        return redirect(route('bands.show', $band->id));
     }
 
     /**
@@ -56,7 +105,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        $band_links = [$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3];
+        $band_links = collect([$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3])->filter();
         return view('band.show', compact('band', 'band_links'));
     }
 
@@ -69,6 +118,7 @@ class BandController extends Controller
      */
     public function edit(Band $band)
     {
+        $this->authorize('update', $band);
         return view('band.edit', compact('band'));
     }
 
@@ -93,23 +143,16 @@ class BandController extends Controller
             'link_3' => ['url', 'nullable'],
         ]);
 
-        function replaceLink($link)//$data['link_1']
-        {
-            $link = str_replace('.com/watch?v=', '.com/embed/', $link);//tweede stap
-            $link = preg_replace('/&t=\d*s$/', '', $link);
-            return $link;
-        }
-
         if (isset($data['link_1'])) {
-            $data['link_1'] = replaceLink($data['link_1']);//eerste stap
+            $data['link_1'] = $this->replaceLink($data['link_1']);//eerste stap
         }
 
         if (isset($data['link_2'])) {
-            $data['link_2'] = replaceLink($data['link_2']);
+            $data['link_2'] = $this->replaceLink($data['link_2']);
         }
 
         if (isset($data['link_3'])) {
-            $data['link_3'] = replaceLink($data['link_3']);
+            $data['link_3'] = $this->replaceLink($data['link_3']);
         }
 
 
@@ -127,7 +170,7 @@ class BandController extends Controller
         unset($data['name']);
         $band->bandBio->update($data);
 
-        return redirect(route('band.show', $band->id));
+        return redirect(route('bands.show', $band->id));
     }
 
 
@@ -140,5 +183,29 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         //
+    }
+
+    public function invite(Request $request, Band $band)
+    {
+        $messsages = [
+            'exists' => 'There are no users with this email.'
+        ];
+
+        $data = $request->validate([
+            'email' => ['email', 'required', 'exists:moderators,email']
+        ], $messsages);
+
+
+        $mod = Moderator::where('email', $data['email'])->first();
+        $band->moderators()->toggle($mod);
+
+        return redirect()->route('bands.edit', $band->id);
+    }
+
+    public function unInvite(Band $band, Moderator $mod)
+    {
+        $this->authorize('controlModerators', $band);
+        $band->moderators()->toggle($mod);
+        return redirect()->route('bands.edit', $band->id);
     }
 }

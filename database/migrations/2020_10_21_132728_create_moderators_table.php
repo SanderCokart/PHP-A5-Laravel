@@ -15,7 +15,7 @@ class CreateModeratorsTable extends Migration
     {
         Schema::create('moderators', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('email');
             $table->foreignId('user_id');
             $table->timestamps();
 

@@ -11,14 +11,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-//REDIRECT FROM UNNECESSARY ROUTE
-Route::get('/band', function () {
-    return redirect('/');
-});
-
 //RESOURCES
-Route::resource('band', \App\Http\Controllers\BandController::class);
+Route::resource('bands', \App\Http\Controllers\BandController::class);
+Route::post('bands/{band}/invite', [\App\Http\Controllers\BandController::class, 'invite'])->name('moderator.add');
+Route::delete('bands/{band}/unInvite/{mod}', [\App\Http\Controllers\BandController::class, 'unInvite'])->name('moderator.remove');
 
-Route::resource('user', \App\Http\Controllers\UserController::class)->only([
+Route::resource('users', \App\Http\Controllers\UserController::class)->only([
     'update', 'edit'
 ]);

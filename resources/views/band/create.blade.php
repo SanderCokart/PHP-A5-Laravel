@@ -1,17 +1,15 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
-        <div class="row">
-            <div class="col-12 @can('addModerators', $band) col-lg-7 @endcan">
-                <form action="{{ route('bands.update', $band->id) }}" enctype="multipart/form-data" method="post">
-                    @csrf
-                    @method('PATCH')
+        <form action="{{ route('band.store') }}" enctype="multipart/form-data" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-8 offset-2">
                     <div class="row">
-                        <h1 class="text-capitalize">{{ $band->name }}</h1>
+                        <h1>Create band</h1>
                     </div>
                     <div class="form-group row">
-                        <label for="title" class="col-md-4 col-form-label ">Name</label>
+                        <label for="title" class="col-md-4 col-form-label ">Name *</label>
 
 
                         <input id="name"
@@ -19,7 +17,7 @@
                                class="form-control @error('name') is-invalid @enderror"
                                name="name"
                                required
-                               value="{{ old('name') ?? $band->name }}"
+                               value="{{ old('name')}}"
                                autocomplete="name" autofocus>
 
                         @error('name')
@@ -36,7 +34,7 @@
                                   class="form-control @error('bio') is-invalid @enderror"
                                   name="bio"
                                   autocomplete="bio"
-                                  autofocus>{{ old('bio') ?? $band->bandBio->bio }}</textarea>
+                                  autofocus>{{ old('bio')}}</textarea>
 
                         @error('bio')
                         <span class="invalid-feedback" role="alert">
@@ -51,7 +49,7 @@
 
                         <input id="link_1"
                                type="text"
-                               value="{{ old('link_1') ?? $band->bandBio->link_1}}"
+                               value="{{ old('link_1')}}"
                                class="form-control @error('link_1') is-invalid @enderror"
                                name="link_1"
                                autocomplete="link_1" autofocus>
@@ -69,7 +67,7 @@
 
                         <input id="link_2"
                                type="text"
-                               value="{{ old('link_2') ?? $band->bandBio->link_2}}"
+                               value="{{ old('link_2')}}"
                                class="form-control @error('link_2') is-invalid @enderror"
                                name="link_2"
                                autocomplete="description" autofocus>
@@ -86,7 +84,7 @@
 
                         <input id="link_3"
                                type="text"
-                               value="{{ old('link_3') ?? $band->bandBio->link_3}}"
+                               value="{{ old('link_3')}}"
                                class="form-control @error('link_3') is-invalid @enderror"
                                name="link_3"
 
@@ -106,7 +104,7 @@
                                    type="text"
                                    class="form-control @error('bg_color') is-invalid @enderror"
                                    name="bg_color"
-                                   value="{{ old('bg_color') ?? $band->bandBio->bg_color}}"
+                                   value="{{ old('bg_color') ?? '#333333'}}"
                                    autocomplete="bg_color" autofocus>
                             <div class="input-group-append">
                                 <div class="background-color-picker"></div>
@@ -127,7 +125,7 @@
                                    type="text"
                                    class="form-control @error('text_color') is-invalid @enderror"
                                    name="text_color"
-                                   value="{{ old('text_color') ?? $band->bandBio->text_color}}"
+                                   value="{{ old('text_color') ?? '#333333'}}"
                                    autocomplete="text_color" autofocus>
                             <div class="input-group-append">
                                 <div class="text-color-picker"></div>
@@ -146,72 +144,14 @@
                         <input type="file" class="form-control-file" id="image" name="image">
 
                         @error('image')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <strong>{{ $message }}</strong>
                         @enderror
                     </div>
-
                     <div class="row pt-4">
                         <button class="btn btn-primary">Save Profile</button>
                     </div>
-                </form>
-            </div>
-            @can('addModerators', $band)
-                <div class="col-12 col-lg-4 offset-0 offset-lg-1">
-                    <div class="row">
-                        <h1>Moderators</h1>
-                    </div>
-                    <form method="POST" action="{{route('moderator.add', $band->id)}}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-12 col-form-label">Invite moderator</label>
-                            <input type="text" id="email" class="form-control @error('name') is-invalid @enderror"
-                                   name="email" autocomplete="email" required type="email"
-                                   placeholder="username@email.com"
-                                   value="{{ old('email') }}">
-                            @error('email')
-                            <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                            @enderror
-                        </div>
-
-                        <div class="row pt-2">
-                            <button class="btn btn-primary" type="submit">invite</button>
-                        </div>
-                    </form>
-                    @if(count($band->moderators) > 0)
-                        <div class="row pt-3">
-                            <div class="card  w-100">
-                                <div class="card-header">
-                                    Active Moderators
-                                </div>
-                                <div class="card-body p-0">
-                                    <ul class="list-group-flush p-0">
-                                        @foreach($band->moderators as $mod)
-                                            <li class="list-group-item d-flex pb-0 justify-content-between">
-                                                <div>{{$mod->email}}</div>
-                                                <div>
-                                                    <form method="post"
-                                                          action="{{route('moderator.remove',  [$band->id, $mod->id])}}">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="text-danger btn btn-link p-0">
-                                                            <i class="fa fa-remove"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
                 </div>
-            @endcan
-        </div>
+            </div>
+        </form>
     </div>
 @endsection
