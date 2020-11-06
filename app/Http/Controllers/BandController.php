@@ -30,7 +30,11 @@ class BandController extends Controller
     {
         $search = $request->get('search');
 
-        $bands = Band::where('name', 'like', '%' . $search . '%')->get();
+        $bands = Band::where('name', 'like', '%' . $search . '%')->orWhereHas('bandBio', function ($query) use ($search) {
+            $query->where('bio', 'like', '%' . $search . '%');
+        })->get();
+
+
         return view('band.index', compact('bands', 'search'));
     }
 
