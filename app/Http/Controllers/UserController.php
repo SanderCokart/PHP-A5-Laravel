@@ -28,6 +28,6 @@ class UserController extends Controller
         unset($data['name']);
         $user->moderator()->update($data);
 
-        return redirect(route('user.edit', $user->id));
+        return redirect(route('users.edit', $user->id));
     }
 }

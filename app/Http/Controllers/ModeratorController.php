@@ -24,4 +24,10 @@ class ModeratorController extends Controller
 
         return redirect()->route('band.edit', $band->id);
     }
+
+    public function unInvite(Moderator $mod, Band $band)
+    {
+        $band->moderators()->toggle($mod);
+        return redirect()->route('band.edit', $band->id);
+    }
 }

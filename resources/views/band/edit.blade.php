@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-12 @can('addModerators', $band) col-lg-7 @endcan">
-                <form action="{{ route('band.update', $band->id) }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('bands.update', $band->id) }}" enctype="multipart/form-data" method="post">
                     @csrf
                     @method('PATCH')
                     <div class="row">
@@ -162,7 +162,7 @@
                     <div class="row">
                         <h1>Moderators</h1>
                     </div>
-                    <form method="POST" action="{{route('moderator.invite', $band->id)}}">
+                    <form method="POST" action="{{route('moderator.add', $band->id)}}">
                         @csrf
 
                         <div class="form-group row">
@@ -182,21 +182,34 @@
                             <button class="btn btn-primary" type="submit">invite</button>
                         </div>
                     </form>
-
-                    <div class="row pt-3">
-                        <div class="card  w-100">
-                            <div class="card-header">
-                                Active Moderators
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group">
-                                    @foreach($band->moderators as $mod)
-                                        <div class="list-group-item">{{$mod->email}}</div>
-                                    @endforeach
-                                </ul>
+                    @if(count($band->moderators) > 0)
+                        <div class="row pt-3">
+                            <div class="card  w-100">
+                                <div class="card-header">
+                                    Active Moderators
+                                </div>
+                                <div class="card-body p-0">
+                                    <ul class="list-group-flush p-0">
+                                        @foreach($band->moderators as $mod)
+                                            <li class="list-group-item d-flex pb-0 justify-content-between">
+                                                <div>{{$mod->email}}</div>
+                                                <div>
+                                                    <form method="post"
+                                                          action="{{route('moderator.remove',  [$band->id, $mod->id])}}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit" class="text-danger btn btn-link p-0">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             @endcan
         </div>

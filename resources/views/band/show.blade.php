@@ -18,7 +18,7 @@
                              class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
                             <div>Biography</div>
                             @can('update', $band)
-                                <a href="{{ route('band.edit', $band->id) }}"
+                                <a href="{{ route('bands.edit', $band->id) }}"
                                    class="btn btn-sm btn-success px-4">Edit</a>
                             @endcan
                         </div>

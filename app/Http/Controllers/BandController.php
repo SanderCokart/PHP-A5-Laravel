@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Band;
+use App\Models\Moderator;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -94,7 +95,7 @@ class BandController extends Controller
         $band->bandBio()->create($data);
 
 
-        return redirect(route('band.show', $band->id));
+        return redirect(route('bands.show', $band->id));
     }
 
     /**
@@ -169,7 +170,7 @@ class BandController extends Controller
         unset($data['name']);
         $band->bandBio->update($data);
 
-        return redirect(route('band.show', $band->id));
+        return redirect(route('bands.show', $band->id));
     }
 
 
@@ -182,5 +183,29 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         //
+    }
+
+    public function invite(Request $request, Band $band)
+    {
+        $messsages = [
+            'exists' => 'There are no users with this email.'
+        ];
+
+        $data = $request->validate([
+            'email' => ['email', 'required', 'exists:moderators,email']
+        ], $messsages);
+
+
+        $mod = Moderator::where('email', $data['email'])->first();
+        $band->moderators()->toggle($mod);
+
+        return redirect()->route('bands.edit', $band->id);
+    }
+
+    public function unInvite(Band $band, Moderator $mod)
+    {
+        $this->authorize('controlModerators', $band);
+        $band->moderators()->toggle($mod);
+        return redirect()->route('bands.edit', $band->id);
     }
 }

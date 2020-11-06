@@ -5,7 +5,7 @@
             <div class="card-header lead font-weight-bold d-flex justify-content-between align-items-baseline">
                 <div>Band List</div>
                 <div>
-                    <form action="{{ route('band.index') }}" method="get">
+                    <form action="{{ route('bands.index') }}" method="get">
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -25,7 +25,7 @@
                         <h2 class="lead font-weight-bold text-center">There are no bands created yet.</h2>
                     @endif
                     @foreach($bands as $band)
-                        <a href="{{route('band.show', $band->id)}}"
+                        <a href="{{route('bands.show', $band->id)}}"
                            class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="row">
                                 <div class="col-3">

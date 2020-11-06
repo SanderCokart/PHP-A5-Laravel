@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('user.update', $user->id) }}">
+        <form method="post" action="{{ route('users.update', $user->id) }}">
             @csrf
             @method('PATCH')
 
