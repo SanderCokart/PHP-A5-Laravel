@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-12 col-lg-7">
+            <div class="col-12 @can('addModerators', $band) col-lg-7 @endcan">
                 <form action="{{ route('band.update', $band->id) }}" enctype="multipart/form-data" method="post">
                     @csrf
                     @method('PATCH')
@@ -157,31 +157,48 @@
                     </div>
                 </form>
             </div>
-            <div class="col-12 col-lg-4 offset-0 offset-lg-1">
-                <div class="row">
-                    <h1>Moderators</h1>
-                </div>
-                <form method="POST" action="{{route('moderator.invite', $band->id)}}">
-                    @csrf
+            @can('addModerators', $band)
+                <div class="col-12 col-lg-4 offset-0 offset-lg-1">
+                    <div class="row">
+                        <h1>Moderators</h1>
+                    </div>
+                    <form method="POST" action="{{route('moderator.invite', $band->id)}}">
+                        @csrf
 
-                    <div class="form-group row">
-                        <label for="email" class="col-md-12 col-form-label">Invite moderator</label>
-                        <input type="text" id="email" class="form-control @error('name') is-invalid @enderror"
-                               name="email" autocomplete="email" required type="email"
-                               placeholder="username@email.com"
-                               value="{{ old('email') }}">
-                        @error('email')
-                        <span class="invalid-feedback d-block" role="alert">
+                        <div class="form-group row">
+                            <label for="email" class="col-md-12 col-form-label">Invite moderator</label>
+                            <input type="text" id="email" class="form-control @error('name') is-invalid @enderror"
+                                   name="email" autocomplete="email" required type="email"
+                                   placeholder="username@email.com"
+                                   value="{{ old('email') }}">
+                            @error('email')
+                            <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div>
-                        <button class="btn btn-primary" type="submit">invite</button>
+                        <div class="row pt-2">
+                            <button class="btn btn-primary" type="submit">invite</button>
+                        </div>
+                    </form>
+
+                    <div class="row pt-3">
+                        <div class="card  w-100">
+                            <div class="card-header">
+                                Active Moderators
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    @foreach($band->moderators as $mod)
+                                        <div class="list-group-item">{{$mod->email}}</div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            @endcan
         </div>
     </div>
 @endsection

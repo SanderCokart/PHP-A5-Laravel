@@ -25,9 +25,20 @@
                     <div><a href="{{ route('band.create') }}" class="btn btn-success btn-sm">Create Band</a></div>
                 </div>
                 <div class="card-body">
-                    @if(count(auth()->user()->bands) > 0)
+                    @if(count(auth()->user()->bands) > 0 || count(auth()->user()->moderator->bands) > 0)
                         <div class="row">
                             @foreach(auth()->user()->bands as $band)
+                                <div class="col-12 col-lg-6 col-xl-4 pb-2">
+                                    <a href="{{ route('band.show', $band->id) }}">
+                                        <div class="position-relative border border-dark rounded">
+                                            <img class="w-100 rounded" src="{{ $band->bandBio->image() }}" alt="">
+                                            <h6 class="bg-dark-transparent w-100 m-0 text-light text-center text-capitalize font-weight-bold font-italic"
+                                                style="position:absolute; bottom:0; left:0;">{{ $band->name }}</h6>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                            @foreach(auth()->user()->moderator->bands as $band)
                                 <div class="col-12 col-lg-6 col-xl-4 pb-2">
                                     <a href="{{ route('band.show', $band->id) }}">
                                         <div class="position-relative border border-dark rounded">

@@ -11,7 +11,7 @@ class ModeratorController extends Controller
     public function invite(Request $request, Band $band)
     {
         $messsages = [
-            'exists' => 'A user with this email does not exist'
+            'exists' => 'There are no users with this email.'
         ];
 
         $data = $request->validate([
@@ -22,5 +22,6 @@ class ModeratorController extends Controller
         $m = Moderator::where('email', $data['email'])->first();
         $band->moderators()->toggle($m);
 
+        return redirect()->route('band.edit', $band->id);
     }
 }

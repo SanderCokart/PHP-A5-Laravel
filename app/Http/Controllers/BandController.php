@@ -104,7 +104,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        $band_links = [$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3];
+        $band_links = collect([$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3])->filter();
         return view('band.show', compact('band', 'band_links'));
     }
 

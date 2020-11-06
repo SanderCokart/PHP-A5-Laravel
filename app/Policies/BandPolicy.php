@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Band;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class BandPolicy
 {
@@ -53,6 +54,13 @@ class BandPolicy
      */
     public function update(User $user, Band $band)
     {
+        return $user->id === $band->user_id || $band->moderators()->where('moderator_id', $user->moderator->id)->exists() ?
+            Response::allow() :
+            Response::deny('You are not the owner or moderator of this band and are therefore not allowed to modify it.');
+    }
+
+    public function addModerators(User $user, Band $band)
+    {
         return $user->id === $band->user_id;
     }
 
@@ -79,6 +87,7 @@ class BandPolicy
     {
         //
     }
+
 
     /**
      * Determine whether the user can permanently delete the model.
