@@ -1,61 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel A5 Final Assignment
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Assignment NL
+Maak een EPK - Electronic Press Kit
+- Gebruikers moeten kunnen inloggen.
 
-## About Laravel
+- Een gebruiker kan meer dan één band onder zijn beheer hebben, en er kunnen meer gebruikers zijn die een band beheren.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Een gebruiker komt dit te zien in een dashboard waar hij zijn eigen gegevens kan aanpassen maar ook kan kiezen uit de bands die hij beheert om door te gaan naar hun EPK.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Een EPK pagina bestaat uit een banner foto met daaronder een biografie / beschrijving van de band. Met daaronder ook 3 YouTube video links. Gebruikers moeten de EPK achtergrond kleur en tekstkleur kunnen wijzigen.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Gasten van de website moeten kunnen zoeken naar bands in een lijst waar de band foto zowel als naam in verschijnt en als ze op een klikken worden ze naar de pagina gebracht waar de bio & YouTube video’s en band foto staan maar de kleuren zijn dan niet aanpasbaar.
 
-## Learning Laravel
+- Enkel de eigenaar kan EPK beheerders toevoegen.
+# Assignment ENG
+Make an EPK - Electronic Press Kit
+- Users have to be able to log in.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- A user can have more than one band under its management, there can be muliple users who manage a band.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- A user will get to see this in a dashboard where he can also change his or her personal information but can also pick between the bands he or she manages. Clicking on a band brings you to the bands' EPK.
 
-## Laravel Sponsors
+- An EPK page contains a banner photo with underneath a biography or description of the band. Under which a user must be able to place up to 3 YouTube links. They must also be able to edit the EPK background color and text color.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Guests of the website must be able to search for bands in a list where there will be a photo as well as the name of the band. When you click on a list item you will be taken to the bands EPK. Guest are unable to edit anything about the EPK.
 
-### Premium Partners
+- Only the bands' owner can add EPK managers.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+# How to install
+Download the repository
 
-## Contributing
+    https://github.com/SanderCokart/PHP-A5-Laravel.git
+ 
+ Run Composer
+ 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    composer install
 
-## Code of Conduct
+ Run NPM **install**
+ 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    npm install
+ Run NPM **dev**
+ 
 
-## Security Vulnerabilities
+    npm run dev
+    
+   ![env.example file](https://i.imgur.com/L59JWK1.png)
+   
+   Duplicate .env.example and rename to .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Generate app key
 
-## License
+    php artisan key:generate
+Set your database settings in the .env file
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    DB_CONNECTION=mysql  
+    DB_HOST=127.0.0.1  
+    DB_PORT=3306  
+    DB_DATABASE=laravel  
+    DB_USERNAME=root  
+    DB_PASSWORD=
+Create storage symbolic link
+
+    php artisan storage:link
+Migrate the database
+
+    php artisan migrate
+
+ Run the server
+ 
+
+    php artisan serve
+
+**Happy coding!**
