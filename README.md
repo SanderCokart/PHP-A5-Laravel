@@ -1,6 +1,6 @@
 # Laravel A5 Final Assignment
 
-# Assignment NL
+# Opdracht NL
 Maak een EPK - Electronic Press Kit
 - Gebruikers moeten kunnen inloggen.
 
