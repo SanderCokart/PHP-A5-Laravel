@@ -59,7 +59,7 @@ class BandPolicy
             Response::deny('You are not the owner or moderator of this band and are therefore not allowed to modify it.');
     }
 
-    public function controlModerators(User $user, Band $band)
+    public function addModerators(User $user, Band $band)
     {
         return $user->id === $band->user_id;
     }
