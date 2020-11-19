@@ -39,7 +39,7 @@
                                   autofocus>{{ old('bio') ?? $band->bandBio->bio }}</textarea>
 
                         @error('bio')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -57,7 +57,7 @@
                                autocomplete="link_1" autofocus>
 
                         @error('link_1')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -75,7 +75,7 @@
                                autocomplete="description" autofocus>
 
                         @error('link_2')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -93,7 +93,7 @@
                                autocomplete="link_3" autofocus>
 
                         @error('link_3')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -114,7 +114,7 @@
                         </div>
 
                         @error('bg_color')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -135,7 +135,7 @@
                         </div>
 
                         @error('text_color')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
