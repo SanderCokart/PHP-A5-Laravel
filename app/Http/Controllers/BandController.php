@@ -20,27 +20,27 @@ class BandController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
+    /** Display a listing of the resource.
      * @param Request $request
      * @return Application|Factory|View|Response
      */
     public function index(Request $request)
     {
-        $search = $request->get('search');
+        /*VALIDATE REQUEST*/
+        $data = $request->validate(['search' => 'nullable|alpha_num']);
 
+        $search = $data['search'];
+
+        /*LOCATE BAND NAMES AND BIOGRAPHIES THAT MATCH THE SEARCH TERM*/
         $bands = Band::where('name', 'like', '%' . $search . '%')->orWhereHas('bandBio', function ($query) use ($search) {
             $query->where('bio', 'like', '%' . $search . '%');
         })->get();
 
-
-        return view('band.index', compact('bands', 'search'));
+        /*RETURN VIEW WITH BANDS AND SEARCH TERM*/
+        return view('band.index', ['bands' => $bands, 'search' => $search]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
+    /** Show the form for creating a new resource.
      * @return Application|Factory|View|Response
      */
     public function create()
@@ -48,16 +48,19 @@ class BandController extends Controller
         return view('band.create');
     }
 
+    /** perform string manipulation on links to replace '.com/watch?v=' with '.com/embed/' and remove the
+     * start timestamp from the url
+     * @param $link
+     * @return string|string[]|null
+     */
     public function replaceLink($link)
     {
-        $link = str_replace('.com/watch?v=', '.com/embed/', $link);//tweede stap
+        $link = str_replace('.com/watch?v=', '.com/embed/', $link);
         $link = preg_replace('/&t=\d*s$/', '', $link);
         return $link;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
+    /**Store a newly created resource in storage.
      * @param Request $request
      * @return Application|RedirectResponse|Response|Redirector
      */

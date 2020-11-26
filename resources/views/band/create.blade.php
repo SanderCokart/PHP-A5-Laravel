@@ -1,13 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        {{--BAND CREATE FORM START--}}
+        {{--ENCODING TYPE CHANGED TO ALLOW FOR IMAGES--}}
         <form action="{{ route('bands.store') }}" enctype="multipart/form-data" method="post">
             @csrf
             <div class="row">
                 <div class="col-8 offset-2">
+                    {{--HEADER--}}
                     <div class="row">
                         <h1>Create band</h1>
                     </div>
+                    {{--BAND NAME START--}}
                     <div class="form-group row">
                         <label for="title" class="col-md-4 col-form-label ">Name *</label>
 
@@ -21,12 +25,14 @@
                                autocomplete="name" autofocus>
 
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BAND NAME END--}}
 
+                    {{--BAND BIOGRAPHY START--}}
                     <div class="form-group row">
                         <label for="bio" class="col-md-4 col-form-label ">Bio</label>
                         <textarea id="bio"
@@ -37,12 +43,14 @@
                                   autofocus>{{ old('bio')}}</textarea>
 
                         @error('bio')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BAND BIOGRAPHY END--}}
 
+                    {{--BAND LINK_1 START--}}
                     <div class="form-group row">
                         <label for="link_1" class="col-md-4 col-form-label ">Link 1</label>
 
@@ -55,12 +63,14 @@
                                autocomplete="link_1" autofocus>
 
                         @error('link_1')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BAND LINK_1 END--}}
 
+                    {{--BAND LINK_2 START--}}
                     <div class="form-group row">
                         <label for="link_2" class="col-md-4 col-form-label ">Link 2</label>
 
@@ -73,12 +83,14 @@
                                autocomplete="description" autofocus>
 
                         @error('link_2')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BAND LINK_2 END--}}
 
+                    {{--BAND LINK_3 START--}}
                     <div class="form-group row">
                         <label for="description" class="col-md-4 col-form-label ">Link 3</label>
 
@@ -91,12 +103,14 @@
                                autocomplete="link_3" autofocus>
 
                         @error('link_3')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BAND LINK_3 END--}}
 
+                    {{--BG_COLOR START--}}
                     <div class="form-group row">
                         <label for="bg_color" class="col-md-4 col-form-label ">Background Color</label>
                         <div class="input-group">
@@ -112,12 +126,14 @@
                         </div>
 
                         @error('bg_color')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--BG_COLOR END--}}
 
+                    {{--TEXT_COLOR START--}}
                     <div class="form-group row">
                         <label for="text_color" class="col-md-4 col-form-label ">Text_color</label>
                         <div class="input-group">
@@ -133,25 +149,33 @@
                         </div>
 
                         @error('text_color')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    {{--TEXT_COLOR END--}}
 
+                    {{--BAND BANNER IMAGE START--}}
                     <div class=" form-group row">
-                        <label for="image" class="col-md-4 col-form-label ">Profile Image</label>
+                        <label for="image" class="col-md-4 col-form-label ">Band Banner Image</label>
                         <input type="file" class="form-control-file" id="image" name="image">
 
                         @error('image')
-                        <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
+                    {{--BAND BANNER IMAGE END--}}
+
+                    {{--SUBMIT--}}
                     <div class="row pt-4">
                         <button class="btn btn-primary">Save Profile</button>
                     </div>
                 </div>
             </div>
         </form>
+        {{--BAND CREATE FORM START--}}
     </div>
 @endsection
