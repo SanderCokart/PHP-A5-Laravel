@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 /*ROOT*/
-Route::get('/', [\App\Http\Controllers\BandController::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\BandController::class, 'index'])->name('root');
 
 /*DASHBOARD FOR LOGGED IN USERS*/
 Route::get('/dashboard', function () {
@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
 Route::post('bands/{band}/invite', [\App\Http\Controllers\BandController::class, 'invite'])->name('moderator.add');
 Route::delete('bands/{band}/unInvite/{mod}', [\App\Http\Controllers\BandController::class, 'unInvite'])->name('moderator.remove');
 /*MAIN RESOURCE*/
-Route::resource('bands', \App\Http\Controllers\BandController::class);
+Route::resource('bands', \App\Http\Controllers\BandController::class)->except(['destroy']);
 /*REDIRECTS*/
 
 /*USERS*/

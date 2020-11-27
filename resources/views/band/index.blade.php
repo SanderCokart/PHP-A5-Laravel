@@ -25,7 +25,7 @@
                                 </div>
                                 <input class="form-control @error('search') is-invalid @enderror" type="search"
                                        placeholder="Search" name="search"
-                                       value="{{ $search }}">
+                                       value="{{ $search ?? '' }}">
                                 {{--SUBMIT--}}
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary" type="submit">Search</button>

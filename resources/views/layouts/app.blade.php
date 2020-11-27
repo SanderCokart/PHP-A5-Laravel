@@ -50,7 +50,7 @@
                     @else
                         <li class="nav-item dropdown d-flex align-items-center justify-content-center">
                             <a class="dropdown-item {{ (request()->is('/*')) ? 'active' : '' }}"
-                               href="{{ route('home') }}">
+                               href="{{ route('root') }}">
                                 Home
                             </a>
                             <a class="dropdown-item {{ (request()->is('dashboard*')) ? 'active' : '' }}"

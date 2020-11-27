@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Band;
 use App\Models\Moderator;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -26,10 +27,15 @@ class BandController extends Controller
      */
     public function index(Request $request)
     {
-        /*VALIDATE REQUEST*/
-        $data = $request->validate(['search' => 'nullable|alpha_num']);
+        /*INIT SEARCH VAR*/
+        $search = '';
 
-        $search = $data['search'];
+        if ($request->has('search')) {
+            /*VALIDATE REQUEST*/
+            $data = $request->validate(['search' => 'nullable|alpha_num|string']);
+            $search = $data['search'];
+        }
+
 
         /*LOCATE BAND NAMES AND BIOGRAPHIES THAT MATCH THE SEARCH TERM*/
         $bands = Band::where('name', 'like', '%' . $search . '%')->orWhereHas('bandBio', function ($query) use ($search) {
@@ -66,6 +72,7 @@ class BandController extends Controller
      */
     public function store(Request $request)
     {
+        /*VALIDATE THE REQUEST*/
         $data = request()->validate([
             'name' => ['min:1', 'required', 'unique:bands'],
             'bio' => ['max:4000', 'nullable'],
@@ -77,6 +84,7 @@ class BandController extends Controller
             'link_3' => ['url', 'nullable'],
         ]);
 
+        /*HANDLE LINKS*/
         if (isset($data['link_1'])) {
             $data['link_1'] = $this->replaceLink($data['link_1']);//eerste stap
         }
@@ -89,19 +97,27 @@ class BandController extends Controller
             $data['link_3'] = $this->replaceLink($data['link_3']);
         }
 
+        /*IF AN IMAGE IS ATTACHED*/
         if (isset($data['image'])) {
+            /*store UploadedFile::class  under band_images folder in the public storage dir*/
             $imagePath = $data['image']->store('band_images', 'public');
+            /*manipulate the image to fit to 1920x1080, smaller images get bigger and bigger ones get resized*/
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1080);
+            /*overwrite the image*/
             $image->save();
+            /*add /storage/ to the imagePath*/
             $imagePath = '/storage/' . $imagePath;
+            /*overwrite data['image']*/
             $data['image'] = $imagePath;
         }
 
+        /*create band from the relationship of the user; must manually set band name*/
         $band = auth()->user()->bands()->create(['name' => $data['name']]);
+        /*remove name from the data array*/
         unset($data['name']);
+        /*pass on the rest of the data to the create function of that bands' bandBio relationship*/
         $band->bandBio()->create($data);
-
-
+        /*redirect the user to the EPK of the same ID*/
         return redirect(route('bands.show', $band->id));
     }
 
@@ -112,7 +128,9 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
+        /*to make the links not fill up empty elements; remove links that are set to null by using filter on a collect*/
         $band_links = collect([$band->bandBio->link_1, $band->bandBio->link_2, $band->bandBio->link_3])->filter();
+        /*return view with the band from the route param and band_links*/
         return view('band.show', compact('band', 'band_links'));
     }
 
@@ -125,20 +143,20 @@ class BandController extends Controller
      */
     public function edit(Band $band)
     {
+        /*allow this page to return if the user is allowed to update the band either by being the owner or moderator*/
         $this->authorize('update', $band);
+        /*return view with the band from the route param*/
         return view('band.edit', compact('band'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
+    /** Update the specified resource in storage.
      * @param Request $request
      * @param Band $band
      * @return Application|RedirectResponse|Redirector
      */
     public function update(Request $request, Band $band)
     {
-        //youtube link embed
+        /*validate request*/
         $data = request()->validate([
             'name' => ['min:1', 'required'],
             'bio' => ['max:4000', 'nullable'],
@@ -150,6 +168,7 @@ class BandController extends Controller
             'link_3' => ['url', 'nullable'],
         ]);
 
+        /*handle links*/
         if (isset($data['link_1'])) {
             $data['link_1'] = $this->replaceLink($data['link_1']);//eerste stap
         }
@@ -162,7 +181,7 @@ class BandController extends Controller
             $data['link_3'] = $this->replaceLink($data['link_3']);
         }
 
-
+        /*if there is an image attached*/
         if (isset($data['image'])) {
             $imagePath = $data['image']->store('band_images', 'public');
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1920, 1080);
@@ -171,48 +190,54 @@ class BandController extends Controller
             $data['image'] = $imagePath;
         }
 
-
+        /*update the band name*/
         $band->update(['name' => $data['name']]);
-
+        /*unset the band name from the data array*/
         unset($data['name']);
+        /*pass on the remainder of the data to the bandBio its update method*/
         $band->bandBio->update($data);
-
+        /*return a redirect to the show page of the EPK of the band with the same ID*/
         return redirect(route('bands.show', $band->id));
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
+    /** add a moderator
+     * @param Request $request
      * @param Band $band
-     * @return void
+     * @return RedirectResponse
      */
-    public function destroy(Band $band)
-    {
-        //
-    }
-
     public function invite(Request $request, Band $band)
     {
+        /*Custom error messages*/
         $messsages = [
             'exists' => 'There are no users with this email.'
         ];
 
+        /*validate request*/
         $data = $request->validate([
             'email' => ['email', 'required', 'exists:moderators,email']
         ], $messsages);
 
-
+        /*find the first moderator to match the email*/
         $mod = Moderator::where('email', $data['email'])->first();
+        /*toggle the mod onto the bands moderators*/
         $band->moderators()->toggle($mod);
-
+        /*return redirect to the bands' edit page with the same ID*/
         return redirect()->route('bands.edit', $band->id);
     }
 
+    /** remove a moderator
+     * @param Band $band
+     * @param Moderator $mod
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
     public function unInvite(Band $band, Moderator $mod)
     {
-        $this->authorize('controlModerators', $band);
+        /*if user is authorized to add moderators onto the band from route params*/
+        $this->authorize('addModerators', $band);
+        /*toggle the moderator from the bands' moderators*/
         $band->moderators()->toggle($mod);
+        /*redirect to the bands' edit page of the same ID*/
         return redirect()->route('bands.edit', $band->id);
     }
 }
