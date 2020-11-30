@@ -38,9 +38,7 @@ class BandController extends Controller
 
 
         /*LOCATE BAND NAMES AND BIOGRAPHIES THAT MATCH THE SEARCH TERM*/
-        $bands = Band::where('name', 'like', '%' . $search . '%')->orWhereHas('bandBio', function ($query) use ($search) {
-            $query->where('bio', 'like', '%' . $search . '%');
-        })->get();
+        $bands = Band::searchByNameAndBio('');
 
         /*RETURN VIEW WITH BANDS AND SEARCH TERM*/
         return view('band.index', ['bands' => $bands, 'search' => $search]);

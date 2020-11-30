@@ -13,6 +13,15 @@ class Band extends Model
         'name',
     ];
 
+    public static function searchByNameAndBio(string $search)
+    {
+        return Band::where('name', 'like', '%' . $search . '%')->orWhereHas('bandBio', function ($query) use ($search) {
+            $query->where('bio', 'like', '%' . $search . '%');
+        })->get();
+
+
+    }
+
     public function user()
     {
         $this->belongsTo(User::class);
