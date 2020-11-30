@@ -23,7 +23,7 @@ class bandFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->title,
             'user_id' => User::factory(),
         ];
     }
