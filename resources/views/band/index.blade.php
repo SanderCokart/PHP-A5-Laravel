@@ -57,7 +57,7 @@
                            class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="row">
                                 <div class="col-3">
-                                    <img class="w-100" src="{{ $band->bandBio->image() }}" alt="">
+                                    <img class="w-100" src="{{ $band->bandBio->getImage() }}" alt="">
                                 </div>
                                 <div class="col-9">
                                     <div class="d-flex w-100 justify-content-between align-items-baseline">

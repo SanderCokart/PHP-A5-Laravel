@@ -135,7 +135,7 @@
 
                     {{--TEXT_COLOR START--}}
                     <div class="form-group row">
-                        <label for="text_color" class="col-md-4 col-form-label ">Text_color</label>
+                        <label for="text_color" class="col-md-4 col-form-label ">Text Color</label>
                         <div class="input-group">
                             <input id="text_color"
                                    type="text"
