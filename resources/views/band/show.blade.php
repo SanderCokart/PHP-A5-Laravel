@@ -5,7 +5,7 @@
 
             {{--BAND BANNER--}}
             <div class="position-relative d-flex justify-content-center align-items-center pt-5">
-                <img class="w-100 rounded img-thumbnail" src="{{ $band->bandBio->image() }}" alt="Band Banner">
+                <img class="w-100 rounded img-thumbnail" src="{{ $band->bandBio->getImage() }}" alt="Band Banner">
             </div>
 
             {{--BAND NAME--}}

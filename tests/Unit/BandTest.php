@@ -12,19 +12,21 @@ class BandTest extends TestCase
     use RefreshDatabase;
     use HasFactory;
 
-    /**
-     * @test
-     */
-    public function createBands()
+    public function testCreateBands()
     {
         Band::factory()->count(5)->create();
+        $this->assertEquals(5, Band::all()->count());
+    }
+
+    public function testSearchBands()
+    {
         Band::factory()->create(['name' => 'name']);
-        Band::factory()->create(['name' => 'name2']);
-        Band::factory()->create(['name' => 'name3']);
+        Band::factory()->create(['name' => 'name1']);
 
-        $bands = Band::searchByNameAndBio("name");
+        $searchResult_1 = Band::searchByNameAndBio("name");
+        $searchResult_2 = Band::searchByNameAndBio("name1");
 
-        $this->assertEquals(3, $bands->count());
-        $this->assertEquals(8, Band::all()->count());
+        $this->assertEquals(2, $searchResult_1->count());
+        $this->assertEquals(1, $searchResult_2->count());
     }
 }

@@ -19,7 +19,7 @@ class BandBioFactory extends Factory
             'link_3' => 'https://www.youtube.com/watch?v=ImtZ5yENzgE',
             'bg_color' => $this->faker->hexColor,
             'text_color' => $this->faker->hexColor,
-            'image' => $this->faker->imageUrl(),
+//            'image' => $this->faker->image(),
             'band_id' => Band::factory(),
         ];
     }
